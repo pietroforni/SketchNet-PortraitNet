@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sketchnet-portraitnet"
+version = "0.1.0"
+description = "Classify artwork as sketches, portraits, or general paintings."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "imagehash>=4.3.2",
+    "numpy>=2.0",
+    "pillow>=11.0",
+    "scikit-learn>=1.6",
+    "torch>=2.6",
+    "torchvision>=0.21",
+]
+
+[project.scripts]
+sketchnet = "artnet.cli:sketchnet_main"
+portraitnet = "artnet.cli:portraitnet_main"
+
+[dependency-groups]
+dev = ["pytest>=8.3"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/artnet"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

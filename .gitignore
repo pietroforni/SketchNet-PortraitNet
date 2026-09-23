@@ -1,0 +1,16 @@
+.DS_Store
+.venv/
+.uv-cache/
+.torch-cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Private source images and generated model files
+data/private/
+artifacts/
+models/
+
+# Generated evaluation plots or temporary reports
+reports/*-duplicate-candidates.csv

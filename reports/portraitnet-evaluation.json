@@ -1,0 +1,115 @@
+{
+  "task": "portraitnet",
+  "split": "test",
+  "checkpoint": "artifacts/checkpoints/portraitnet.pt",
+  "checkpoint_sha256": "521878c2f754c5d26697d5475d6e1a5fc7b0b204793306637a4da16ead7fe7c4",
+  "manifest": "data/manifests/portraitnet.csv",
+  "manifest_sha256": "64086e9fbac511cc717d5629889de467ca9b8510adf59a1ba4b9fab6559e81b0",
+  "checkpoint_metadata": {
+    "task": "portraitnet",
+    "class_names": [
+      "general_painting",
+      "portrait"
+    ],
+    "seed": 42,
+    "epoch": 6,
+    "manifest_sha256": "64086e9fbac511cc717d5629889de467ca9b8510adf59a1ba4b9fab6559e81b0",
+    "image_size": 224,
+    "preprocessing": {
+      "resize": 256,
+      "center_crop": 224,
+      "normalization_mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "normalization_std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    },
+    "validation_metrics": {
+      "accuracy": 0.9738134206219312,
+      "correct": 595,
+      "total": 611,
+      "balanced_accuracy": 0.9751237597008149,
+      "confusion_matrix": [
+        [
+          321,
+          13
+        ],
+        [
+          3,
+          274
+        ]
+      ],
+      "per_class": {
+        "general_painting": {
+          "precision": 0.9907407407407407,
+          "recall": 0.9610778443113772,
+          "f1": 0.9756838905775076,
+          "support": 334
+        },
+        "portrait": {
+          "precision": 0.9547038327526133,
+          "recall": 0.9891696750902527,
+          "f1": 0.9716312056737589,
+          "support": 277
+        }
+      }
+    },
+    "training_config": {
+      "epochs": 10,
+      "batch_size": 32,
+      "learning_rate": 0.0001,
+      "optimizer": "Adam",
+      "loss": "CrossEntropyLoss",
+      "pretrained_weights": "ResNet50_Weights.IMAGENET1K_V1",
+      "device": "mps"
+    }
+  },
+  "metrics": {
+    "accuracy": 0.9627228525121556,
+    "correct": 594,
+    "total": 617,
+    "balanced_accuracy": 0.9619489190334888,
+    "confusion_matrix": [
+      [
+        327,
+        10
+      ],
+      [
+        13,
+        267
+      ]
+    ],
+    "per_class": {
+      "general_painting": {
+        "precision": 0.961764705882353,
+        "recall": 0.9703264094955489,
+        "f1": 0.96602658788774,
+        "support": 337
+      },
+      "portrait": {
+        "precision": 0.9638989169675091,
+        "recall": 0.9535714285714286,
+        "f1": 0.9587073608617595,
+        "support": 280
+      }
+    },
+    "artist_bootstrap": {
+      "samples": 10000,
+      "accuracy_95_ci": [
+        0.9375,
+        0.9804179868615445
+      ],
+      "balanced_accuracy_95_ci": [
+        0.9281690420859628,
+        0.9803081401432915
+      ]
+    },
+    "majority_baseline": 0.546191247974068,
+    "artists": 61
+  }
+}
