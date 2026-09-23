@@ -45,6 +45,19 @@ uv run sketchnet classify path/to/image.jpg \
   --portrait-checkpoint models/portraitnet.pt
 ```
 
+To classify every JPEG, PNG, or WebP image in a folder (including subfolders), run:
+
+```bash
+find path/to/folder -type f \( \
+  -iname '*.jpg' -o -iname '*.jpeg' -o \
+  -iname '*.png' -o -iname '*.webp' \
+\) -exec uv run sketchnet classify {} \
+  --sketch-checkpoint models/sketchnet.pt \
+  --portrait-checkpoint models/portraitnet.pt \;
+```
+
+The command prints one JSON result for each image.
+
 The training images are private and are not required for prediction. The model files are kept in GitHub Releases rather than in Git so the source repository remains lightweight.
 
 ## Architecture
@@ -66,3 +79,7 @@ uv run portraitnet evaluate --device mps
 
 uv run pytest
 ```
+
+## License
+
+The source code and released model checkpoints are provided under the [MIT License](LICENSE). The private training images are not distributed and are not covered by this license.
