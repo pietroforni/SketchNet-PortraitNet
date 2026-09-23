@@ -45,18 +45,26 @@ uv run sketchnet classify path/to/image.jpg \
   --portrait-checkpoint models/portraitnet.pt
 ```
 
-To classify every JPEG, PNG, or WebP image in a folder (including subfolders), run:
+To sort a folder with SketchNet, provide the folder containing the images:
 
 ```bash
-find path/to/folder -type f \( \
-  -iname '*.jpg' -o -iname '*.jpeg' -o \
-  -iname '*.png' -o -iname '*.webp' \
-\) -exec uv run sketchnet classify {} \
-  --sketch-checkpoint models/sketchnet.pt \
-  --portrait-checkpoint models/portraitnet.pt \;
+uv run sketchnet sort path/to/images --checkpoint models/sketchnet.pt
 ```
 
-The command prints one JSON result for each image.
+The source folder is left unchanged. Images are copied recursively into two sibling folders:
+
+```text
+images_painting/
+images_sketch/
+```
+
+PortraitNet works in the same way. For example, sort the paintings produced above with:
+
+```bash
+uv run portraitnet sort path/to/images_painting --checkpoint models/portraitnet.pt
+```
+
+This creates `images_painting_general_painting/` and `images_painting_portrait/`. Output folders must not already exist, which prevents accidental overwriting.
 
 The training images are private and are not required for prediction. The model files are kept in GitHub Releases rather than in Git so the source repository remains lightweight.
 

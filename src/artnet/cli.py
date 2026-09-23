@@ -7,7 +7,7 @@ from pathlib import Path
 from .cascade import classify_artwork
 from .data import prepare_manifest
 from .evaluate import evaluate_model
-from .predict import predict_image
+from .predict import predict_image, sort_folder
 from .tasks import TASKS, TaskSpec
 from .train import train_model
 
@@ -23,6 +23,13 @@ def build_parser(task: TaskSpec, *, include_cascade: bool = False) -> argparse.A
     predict.add_argument("image", type=Path)
     predict.add_argument("--checkpoint", type=Path, default=task.checkpoint)
     predict.add_argument("--device", default="auto")
+
+    sort = subparsers.add_parser(
+        "sort", help="Classify a folder and copy images into two labeled folders"
+    )
+    sort.add_argument("source", type=Path)
+    sort.add_argument("--checkpoint", type=Path, default=task.checkpoint)
+    sort.add_argument("--device", default="auto")
 
     prepare = subparsers.add_parser("prepare", help="Validate data and create fixed splits")
     prepare.add_argument("--data-dir", type=Path, default=task.data_dir)
@@ -69,6 +76,8 @@ def run(task: TaskSpec, *, include_cascade: bool = False) -> None:
     args = build_parser(task, include_cascade=include_cascade).parse_args()
     if args.command == "predict":
         result = predict_image(task, args.image, args.checkpoint, args.device)
+    elif args.command == "sort":
+        result = sort_folder(task, args.source, args.checkpoint, args.device)
     elif args.command == "prepare":
         result = prepare_manifest(
             task, args.data_dir, args.manifest, args.duplicate_report, args.seed
